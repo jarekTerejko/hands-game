@@ -48,8 +48,8 @@ const game = () => {
         const computerRandomNum = Math.floor(Math.random() * 3);
         const computerChoice = computerOptions[computerRandomNum];
         // UI rece jako kamieć
-        playerHand.src = `/img/rock.png`;
-        computerHand.src = `/img/rock.png`;
+        playerHand.src = `img/rock.png`;
+        computerHand.src = `img/rock.png`;
         // zatrzymanie mozłiwośći ponownego kilkniecie przed ukończniem animacji i updatem UI
         options.forEach(option => {
           option.disabled = true;
@@ -61,13 +61,13 @@ const game = () => {
         setTimeout(() => {
           compareHands(this.textContent, computerChoice);
           // wyświetlenie obrazów - wybranych/wylosowanych
-          playerHand.src = `/img/${this.textContent}.png`;
-          computerHand.src = `/img/${computerChoice}.png`;
+          playerHand.src = `img/${this.textContent}.png`;
+          computerHand.src = `img/${computerChoice}.png`;
           // jesli player lub computer osiągneli score 3
           if (playerScore === 3 || computerScore === 3) {
             setTimeout(() => {
-              playerHand.src = `/img/rock.png`;
-              computerHand.src = `/img/rock.png`;
+              playerHand.src = `img/rock.png`;
+              computerHand.src = `img/rock.png`;
               // ukrycie buttonów z wyborem
               options.forEach(option => {
                 option.style.display = "none";
