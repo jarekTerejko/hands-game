@@ -4,7 +4,7 @@ const game = () => {
   let computerScore = 0;
   const infoMsg = document.querySelector(".info");
 
-  // utowrznie buttona resetującego 
+  // utowrznie buttona resetującego
   const createBtn = () => {
     const playAgainBtn = document.createElement("button");
     playAgainBtn.classList.add("reset");
@@ -17,12 +17,13 @@ const game = () => {
     const startGameBtn = document.querySelector(".start-game");
     const welcomeScreen = document.querySelector(".welcome");
     const gameRounds = document.querySelector(".game-rounds");
-
+    const scoreBoard = document.querySelector(".score-board");
     // ekran startowy znika, pojawiają sie rece
     startGameBtn.addEventListener("click", () => {
       welcomeScreen.classList.add("fade-out");
       gameRounds.classList.add("fade-in");
       gameRounds.classList.remove("fade-out");
+      scoreBoard.classList.add("fade-in");
     });
   };
 
@@ -32,9 +33,10 @@ const game = () => {
     const computerHand = document.querySelector(".computer-hand");
     const hands = document.querySelectorAll(".hands img");
 
+    // event listener usuwa animacje po ich ukończniu
     hands.forEach(hand => {
       hand.addEventListener("animationend", e => {
-        console.log(e.target);
+        // console.log(e.target);
         e.target.style.animation = "";
       });
     });
@@ -47,16 +49,19 @@ const game = () => {
       option.addEventListener("click", function() {
         const computerRandomNum = Math.floor(Math.random() * 3);
         const computerChoice = computerOptions[computerRandomNum];
-        // UI rece jako kamieć
+        // UI rece jako kamień
         playerHand.src = `img/rock.png`;
         computerHand.src = `img/rock.png`;
         // zatrzymanie mozłiwośći ponownego kilkniecie przed ukończniem animacji i updatem UI
         options.forEach(option => {
           option.disabled = true;
         });
-        infoMsg.textContent = "..."
+        // komunikat
+        infoMsg.textContent = "...";
+        // animacja
         playerHand.style.animation = "blurPlayerHand 2s ease";
         computerHand.style.animation = "blurComputerHand 2s ease";
+
         // funcja wykonuje sie po 2s kiedy animacja dobiegnie końca
         setTimeout(() => {
           compareHands(this.textContent, computerChoice);
@@ -65,7 +70,9 @@ const game = () => {
           computerHand.src = `img/${computerChoice}.png`;
           // jesli player lub computer osiągneli score 3
           if (playerScore === 3 || computerScore === 3) {
+            // po sukundzie...
             setTimeout(() => {
+              // zmiana obrazkow na kamień
               playerHand.src = `img/rock.png`;
               computerHand.src = `img/rock.png`;
               // ukrycie buttonów z wyborem
@@ -82,14 +89,14 @@ const game = () => {
                 btn.remove();
                 // ...wyswietlenie komunikatu o możliwości ponownego wyboru
                 infoMsg.textContent = "Choose an option";
-                // ... reset zgormadzonych prze Playera i Computer punktów
+                // ... reset zgormadzonych przez Playera i Computer punktów
                 playerScore = 0;
                 computerScore = 0;
                 updateScore();
                 // ... ponowne wyświetlenie buttonów z wyborem
                 options.forEach(option => {
                   option.disabled = false;
-                  option.style.display = "inline";
+                  option.style.display = "block";
                 });
               });
               // wywietlenie komunikatu o zwycięzcy w zależnoście ktory pierwszy osiągnął 3 zwycięzstwa
